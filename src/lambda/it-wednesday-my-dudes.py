@@ -221,7 +221,13 @@ async def send_welcome(message: types.Message) -> None:
     """Send welcome message."""
     await message.answer(f"Hello, {message.from_user.first_name}!")
 
-@dp.message(Command("day"))
+
+@dp.message(Command("hello"))
+async def send_welcome(message: types.Message) -> None:
+    """Send welcome message."""
+    await message.answer(f"Hello, {message.from_user.first_name}!")
+
+@dp.message(Command("today"))
 async def day_handler(message: types.Message) -> None:
     """Where day is?"""
     from datetime import datetime
@@ -245,6 +251,12 @@ async def get_specific_day(message: types.Message) -> None:
     else:
         await message.answer("Please specify a day. Example: /getday Monday")
 
+@dp.message(Command("help"))
+async def help_handler(message: types.Message) -> None:
+    await message.answer(f"Help:\n"
+                         f"/today - Get photo of current day\n"
+                         f"/getday (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday) - get photo of chosen day\n"
+                         f"/hello - 'Hello, ' + your_username\n")
 
 async def main() -> None:
     bot = Bot(token=API_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
